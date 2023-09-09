@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="layout(content)">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title th:text="${title}">Base html</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+		integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+		crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link rel="stylesheet" th:href="@{/css/style.css}" />
+	<script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+	<!-- THIS IS NAVBAR -->
+	<nav class="fixed-top navbar navbar-expand-lg bg-body-tertiary bg-primary  ">
+		<div class="container-fluid">
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01"
+				aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+				<a class="navbar-brand" th:href="@{/}">SmartContactManager</a>
+				<ul class="navbar-nav text-uppercase ">
+					<li class="nav-item ">
+						<a class="nav-link"  aria-current="page" th:href="@{/}">Home</a>
+					</li>
+
+					<li class="nav-item">
+						<a href="#"  class="nav-link"><span th:text="${user.name}"></span></a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{/logout}">Logout</a>
+					</li>
+
+				</ul>
+
+			</div>
+		</div>
+	</nav>
+
+	<!--End of navbar-->
+
+	<!--SIDEBAR-->
+	<div class="sidebar mt-2">
+		<span onclick="toggleSidebar()" class="crossBtn">&times;</span>
+		<a id="home-link" th:href="@{/user/index}" class="item"><i class="fas fa-home"></i> Home</a>
+		<a id="view-link" th:href="@{/user/viewContacts/0}" class="item"><i class="fas fa-id-card-alt"></i> View Contacts</a>
+		<a id="add-link" th:href="@{/user/addContact}" class="item"><i class="fas fa-pencil-alt"></i> Add Contact</a>
+		<a id="profile-link" th:href="@{/user/profile}" class="item"><i class="fas fa-user-circle"></i> Your Profile</a>
+		<a id="settings-link" th:href="@{/user/settings}" class="item"><i class="fas fa-cogs"></i> Settings</a>
+		<a th:href="@{/logout}" class="item"><i class="fas fa-sign-out-alt"></i> Logout</a>
+		<div class="divider"></div>
+
+
+	</div>
+
+
+
+	<!-- END OF SIDEBAR-->
+
+	<!-- CONTENT AREA -->
+	<div class="content mt-5">
+		
+		<i  onclick="toggleSidebar()" class="fas fa-bars m-3"></i>
+		
+		<!-- MESSAGE BOX FOR ADDING CONTACT -->
+		<div th:if="${session.message}" class="container">
+			<div th:classappend="${'alert-'+session.message.type}"
+			class="alert  text-center" role="alert">
+  			<span th:text="${session.message.content}">	</span>
+  			<th:block th:text="${@sessionHelper.removeMessageFromSession()}"/>
+</div>
+			
+		</div>
+		
+		
+		
+		<div th:replace="${content}">
+
+
+		</div>
+
+	</div>
+
+	<!--  END OF CONTENT AREA-->
+
+	
+		    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+	<script th:src="@{/js/script.js}"></script>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+	function deleteContact(cid){
+		swal({
+  title: "Are you sure?",
+  text: "Are you sure you want to delete this file!",
+  icon: "warning",
+  buttons: true,
+  dangerMode: true,
+})
+.then((willDelete) => {
+  if (willDelete) {
+    window.location="/user/deleteContact/"+cid;
+  } else {
+    swal("Your contact is safe!");
+  }
+});
+	}
+	
+	
+	
+</script>
+
+</body>
+
+</html>

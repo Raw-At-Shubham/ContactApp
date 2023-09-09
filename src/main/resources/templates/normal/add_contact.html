@@ -1,0 +1,139 @@
+ <!doctype html>
+ <html lang="en"  xmlns:th="http://www.thymeleaf.org" th:replace="~{normal/base::layout(~{::section})}">
+ <head>
+ 	<meta charset="UTF-8" />
+ 	<title>Home Page</title>
+ </head>
+ <body>
+	 <section> 	
+	<div class="card mr-3 ">
+		
+		<div class="card-body">
+			
+			<h1 class="text-center">Add Contact</h1>
+			 	<div class="container-fluid mt-1">
+					 <div class="row">
+						 
+						 <div class="col-md-10 offset-md-1">
+							 <form 
+							 th:action="@{/user/processContact}"
+							  th:object="${contact}"
+							  enctype="multipart/form-data"
+							  method="POST"
+							  class="mt-2">
+							  
+							  <!-- NAME FIELD-->
+				<div class="input-group">
+					<div class="input-group-prepend">
+						<div class="input-group-text">
+							<i class="fas fa-plus"> </i>
+						</div>
+					</div>
+					<input required type="text"name="name"id="firstName" class="form-control"
+					placeholder="Enter name here"/>
+				</div>						  
+						
+						<!-- SECOND NAME -->
+									<div class="input-group mt-1">
+					<div class="input-group-prepend">
+						<div class="input-group-text">
+							<i class="fas fa-user-alt"> </i>
+						</div>
+					</div>
+					<input required type="text"
+					name="secondName"id="secondName"
+					 class="form-control "
+					placeholder="Enter nick name here"/>
+				</div>		  
+							  
+							  <!-- Phone FIELD-->
+							  				<div class="input-group mt-1">
+					<div class="input-group-prepend">
+						<div class="input-group-text">
+							<i class="fas fa-phone"> </i>
+						</div>
+					</div>
+					<input type="number"
+					name="phone"id="phone"
+					 class="form-control "
+					placeholder="Enter phone number here"/>
+				</div>	
+				
+				
+							  
+							  <!-- Email FIELD-->
+							  				<div class="input-group mt-1">
+					<div class="input-group-prepend">
+						<div class="input-group-text">
+							@
+						</div>
+					</div>
+					<input required type="email"
+					name="email"id="email"
+					 class="form-control "
+					placeholder="Enter Email here"/>
+				</div>	
+				
+				
+				
+							  
+							  <!-- Work FIELD-->
+							  				<div class="input-group mt-1">
+					<div class="input-group-prepend">
+						<div class="input-group-text">
+							<i class="fa fa-briefcase"></i>
+						</div>
+					</div>
+					<input required type="text"
+					name="work"id="work"
+					 class="form-control "
+					placeholder="Enter Work here"/>
+				</div>	
+				
+				<!--Contact DESCRIPTION-->
+				
+				<div class="form-group mt-3">
+					
+					
+					<textarea class="form-control"
+					placeholder="Enter contact description"
+					name="description" id="mytextarea" rows="10"></textarea>
+				</div>
+							
+					<!--CONTACT IMAGE-->
+					<div class="custom-file">
+						<input type="file" name="profileImage"/>
+					</div>		
+							<div class="container text-center">
+								
+								<button class="btn btn-outline-primary">Save Contact</button>
+							</div>
+							  </form>
+						 </div>
+						 
+					 </div>
+					 
+				 </div>
+			
+		</div>
+		
+	</div>
+	<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+ 	 <script>
+      tinymce.init({
+        selector: '#mytextarea'
+      });
+    </script>
+    
+    <script>
+
+$(document).ready(()=>{
+
+$(".item").removeClass('active');
+$("#add-link").addClass('active');
+
+});
+</script>
+ 	</section>
+ </body>
+ </html>

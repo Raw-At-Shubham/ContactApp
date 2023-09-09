@@ -1,0 +1,111 @@
+ <!doctype html>
+ <html lang="en"  xmlns:th="http://www.thymeleaf.org" th:replace="~{base::layout(~{::section})}">
+ <head>
+ 	<meta charset="UTF-8" />
+ 	<title>Home Page</title>
+ </head>
+ <body>
+	 <section>
+ 	<div class="container">
+		 <div class="row">
+			 <div class="col-md-8 offset-md-2">
+				 <div class="my-card mt-3">
+					 <!--ERROR MSG-->
+					 
+					 
+					 <div th:if="${session.message}"
+					  th:classappend="${session.message.type}"
+					 class="alert"
+					  role="alert">
+<p th:text="${session.message.content}"></p>	
+
+
+</div>
+					 <div class="container text-center">
+					 <img style="width:80px;"th:src="@{/images/register.png}" alt="register icon " />
+						</div>
+				 <h1 class="text-center">Register Here</h1>
+				 <form th:action="@{/doRegister}" method="post" th:object="${user}">			
+	
+	<!-- NAME FIELD -->
+	
+	<div class="mb-3">
+    <label for="exampleInputName" class="form-label">Your Name</label>
+    <input 
+    type="text" 
+    placeholder="Enter here" 
+    name="name" 
+    th:classappend="${#fields.hasErrors('name')}?'is-invalid':''"
+    th:value="${user.name}"
+    class="form-control" 
+    id="exampleInputName">
+  
+   
+ 
+    
+    <div th:each= "e: ${#fields.errors('name')}"
+     th:text="${e}"
+     class="invalid-feedback">
+ 
+    </div>
+    </div>
+   <!-- EMAIL FIELD -->
+   
+   
+  <div class="mb-3">
+    <label for="InputEmail" class="form-label">Email address</label>
+    <input type="email" 
+    name="email"
+    th:value="${user.email}"
+     class="form-control" 
+     id="InputEmail" >
+     
+    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+  </div>
+  
+  <!-- PASSWORD FIELD -->
+  
+  <div class="mb-3">
+    <label for="exampleInputPassword1" class="form-label">Password</label>
+    <input type="password" 
+    name="password"
+    class="form-control" 
+    id="exampleInputPassword1">
+        <div id="pwdhelp" class="form-text">We'll never share your password with anyone else.</div>
+
+  </div>
+  
+  
+  <!-- TEXTAREA -->
+  
+ <div class="form-group">
+	 <textarea 
+	 placeholder="Enter about yourself"
+	 name="about"
+	 rows="10" class="form-control" th:text="${user.about}"></textarea>
+ </div>
+ <!-- TERMS & CONDITIONS-->
+ <div class="form-group form-check">
+ <input type="checkbox"
+ name="agreement"
+ class="form-check-input"
+ id="agreement"/>
+ 
+ <label for="agreement">Accept Terms and conditions</label>
+ </div>
+ 
+ <!-- BUTTONS -->
+ <div class="container text-center mt-3">
+  <button type="submit" class="btn bg-primary">Submit</button>
+   <button type="reset" class="btn btn-warning">Reset</button>
+  </div>
+  
+</form>
+					
+				 </div>
+			 </div>
+		 </div>
+	 </div>
+ 	</section>
+ </body>
+ </html>
